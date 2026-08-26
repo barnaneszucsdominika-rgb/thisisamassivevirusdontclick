@@ -1,0 +1,109 @@
+import tkinter as tk
+import random
+import time
+
+# Fake Virus Prank - teljesen ártalmatlan
+
+root = tk.Tk()
+root.title("SYSTEM WARNING")
+root.attributes("-fullscreen", True)
+root.configure(bg="black")
+
+# ESC = kilépés
+root.bind("<Escape>", lambda event: root.destroy())
+
+title = tk.Label(
+    root,
+    text="⚠ SYSTEM SECURITY ALERT ⚠",
+    font=("Consolas", 28, "bold"),
+    fg="red",
+    bg="black"
+)
+title.pack(pady=35)
+
+message = tk.Label(
+    root,
+    text="CONGRATULATIONS! YOU CLICKED INTO A VIRUS!",
+    font=("Consolas", 24, "bold"),
+    fg="red",
+    bg="black"
+)
+message.pack(pady=20)
+
+status = tk.Label(
+    root,
+    text="Initializing malware simulation...",
+    font=("Consolas", 16),
+    fg="white",
+    bg="black"
+)
+status.pack(pady=20)
+
+progress = tk.Label(
+    root,
+    text="SYSTEM SCAN: 0%",
+    font=("Consolas", 18),
+    fg="red",
+    bg="black"
+)
+progress.pack(pady=10)
+
+info = tk.Label(
+    root,
+    text="",
+    font=("Consolas", 14),
+    fg="white",
+    bg="black",
+    justify="left"
+)
+info.pack(pady=20)
+
+def fake_scan():
+    files = [
+        "Windows/System32/kernel.dll",
+        "Users/Administrator/passwords.dat",
+        "System/config/security.db",
+        "Documents/private_files.zip",
+        "Desktop/important_data.dat"
+    ]
+
+    for i in range(101):
+        progress.config(text=f"SYSTEM SCAN: {i}%")
+
+        if i < 25:
+            status.config(text="Scanning system...")
+        elif i < 50:
+            status.config(text="Detecting system files...")
+        elif i < 75:
+            status.config(text="Accessing secure database...")
+        else:
+            status.config(text="CRITICAL SYSTEM ERROR!")
+
+        fake_file = random.choice(files)
+
+        info.config(
+            text=f"TARGET: {fake_file}\n"
+                 f"THREAT LEVEL: CRITICAL\n"
+                 f"ENCRYPTION: {random.randint(10, 99)}%\n"
+                 f"ACCESS: GRANTED"
+        )
+
+        root.update()
+        time.sleep(0.025)
+
+    status.config(text="😂 JUST KIDDING — THIS IS A FAKE VIRUS!")
+    message.config(
+        text="CONGRATULATIONS! YOU CLICKED INTO A VIRUS! 😂",
+        fg="lime"
+    )
+
+    info.config(
+        text="NO FILES WERE DELETED\n"
+             "NO DATA WAS STOLEN\n"
+             "NO SYSTEM CHANGES WERE MADE\n\n"
+             "PRESS ESC TO EXIT"
+    )
+
+root.after(500, fake_scan)
+
+root.mainloop()
